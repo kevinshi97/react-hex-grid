@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Hexagon from './components/Hexagon/Hexagon';
 
 function App() {
+  const onMouseEnter = (e: MouseEvent) => {
+    console.log('onMouseEnter App');
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -18,7 +23,10 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+      <Hexagon
+        onMouseEnter={e => onMouseEnter(e)}
+      />
     </div>
   );
 }

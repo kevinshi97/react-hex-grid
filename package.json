@@ -1,5 +1,6 @@
 {
   "name": "react-hex-grid",
+  "homepage": "http://kevinshi.me/react-hex-grid/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
