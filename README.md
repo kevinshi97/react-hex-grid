@@ -2,6 +2,9 @@ Check out my app [here](http://kevinshi.me/react-hex-grid/)!
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Deployment on Github pages was done following this [wonderful guide](https://github.com/gitname/react-gh-pages).
 
+## Todo
+- declare propTypes for js usage.
+
 ## Available Scripts
 
 In the project directory, you can run:

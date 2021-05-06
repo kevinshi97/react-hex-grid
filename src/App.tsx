@@ -1,7 +1,8 @@
-import React, { MouseEvent } from 'react';
-import logo from './logo.svg';
+import { MouseEvent } from 'react';
 import './App.css';
-import Hexagon from './components/Hexagon/Hexagon';
+import HexGrid from './components/HexGrid/HexGrid'
+import Hex from './components/Hex/Hex';
+// import { HexPos } from './models/models';
 
 function App() {
   const onMouseEnter = (e: MouseEvent) => {
@@ -10,23 +11,9 @@ function App() {
 
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <Hexagon
-        onMouseEnter={e => onMouseEnter(e)}
-      />
+      <HexGrid height={210} width={500}>
+        <Hex pos={{ x: 0, y: 0, z: 0 }} onMouseEnter={e => onMouseEnter(e)} />
+      </HexGrid>
     </div>
   );
 }
