@@ -3,7 +3,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Deployment on Github pages was done following this [wonderful guide](https://github.com/gitname/react-gh-pages).
 
 ## Todo
-- declare propTypes for js usage.
+- declare propTypes for js usage
+- add in a check in the hexgrid - make sure its children are all hexes
 
 ## Available Scripts
 

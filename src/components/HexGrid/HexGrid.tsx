@@ -33,34 +33,22 @@ const defaultSettings = {
     y: 0
   } as Point,
   size: {
-    x: 10,
-    y: 10
+    x: 12,
+    y: 12
   } as Point,
   spacing: 1
 } as HexGridSettings
 
 function HexGrid({ height = 600, width = 800, viewBox = "-50 -50 100 100", children = null, settings = defaultSettings }: HexGridProps) {
   
-  const getChildContext = () => {
-    const orientation = (settings.flat) ? LAYOUT_FLAT : LAYOUT_POINT;
-    const cornerCoords = calculateCoordinates(orientation);
-    const points = cornerCoords.map(point => `${point.x},${point.y}`).join(' ');
-    const childLayout = Object.assign({}, settings, { orientation });
-
-    return {
-      layout: childLayout,
-      points
-    };
-  }
-
   const getPointOffset = (corner: number, orientation: Orientation) => {
     let angle = 2.0 * Math.PI * (corner + orientation.angle) / 6;
     return { x: settings.size.x * Math.cos(angle), y: settings.size.y * Math.sin(angle) } as Point
   }
 
-  const calculateCoordinates = (orientation: Orientation) => {
+  const calculateCornerCoordinates = (point: Point, orientation: Orientation) => {
     const corners: Point[] = [];
-    const center = {x: 0, y: 0} as Point;
+    const center = point;
 
     Array.from(new Array(6), (x, i) => {
       const offset = getPointOffset(i, orientation);
@@ -71,9 +59,31 @@ function HexGrid({ height = 600, width = 800, viewBox = "-50 -50 100 100", child
     return corners;
   }
 
+  const getChildContext = () => {
+    const orientation = (settings.flat) ? LAYOUT_FLAT : LAYOUT_POINT;
+    const getPoints = function (point: Point) {
+      const cornerCoords = calculateCornerCoordinates(point, orientation);
+      return cornerCoords.map(point => `${point.x},${point.y}`).join(' ');
+    }
+
+    return {
+      settings,
+      orientation,
+      getPoints
+    };
+  }
+
+  let hexContext = getChildContext();
+  console.log(hexContext);
+
   return (
     <svg className="grid" height={height} width={width} viewBox={viewBox} version="1.1" xmlns="http://www.w3.org/2000/svg">
-      {children}
+      {/* {children} */}
+      {React.Children.map(children, child => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, { hexContext });
+        }
+      })}
     </svg>
   )
 }

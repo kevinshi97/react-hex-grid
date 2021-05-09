@@ -1,9 +1,10 @@
 import React from 'react';
-import { HexPos } from '../../models/models';
+import { HexCoordinates, Orientation, Point } from '../../models/models';
+import { HexGridSettings } from '../HexGrid/HexGridProps';
 
 type HexProps = {
   // position
-  pos: HexPos;
+  coordinates: HexCoordinates;
   // classnames
   className?: string;
   // other data
@@ -11,6 +12,12 @@ type HexProps = {
   // styling
   fill?: string;
   cellStyle?: string | object;
+  // context
+  hexContext?: {
+    settings: HexGridSettings;
+    orientation: Orientation;
+    getPoints: (point: Point) => string;
+  };
   // mouseEvent handlers
   onMouseEnter?: (e: React.MouseEvent) => void;
   onMouseOver?: (e: React.MouseEvent) => void;

@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Point } from '../../models/models';
 import HexProps from './HexProps'
+import HexUtils from './HexUtils';
 
 function Hex(props: HexProps) {
-
   const [state, setstate] = useState({})
+
+  console.log(props.coordinates);
+
+  const centerPixels = props.hexContext ? HexUtils.hexToPixel(props.coordinates, props.hexContext.orientation, props.hexContext.settings) : { x: 0, y: 0 } as Point
+  const cornerPixels = props.hexContext ? props.hexContext.getPoints(centerPixels) : "0,0 250,190 160,210";
+
+  useEffect(() => {
+    console.log(props);
+  })
 
   const onMouseEnter = (e: React.MouseEvent) => {
     // console.log('onMouseEnter');
@@ -26,6 +36,8 @@ function Hex(props: HexProps) {
   const onClick = (e: React.MouseEvent) => {
     console.log('onClick');
     console.log(state);
+    console.log(props.coordinates);
+    console.log(centerPixels);
     if (props.onClick) {
       props.onClick(e);
       // props.onClick(e, this);
@@ -82,7 +94,10 @@ function Hex(props: HexProps) {
       onDrop={e => onDrop(e)}
     >
       <g className="hex">
-        <polygon points="0,0 250,190 160,210" fill="lime" />
+        {props.hexContext ? 
+          <polygon points={cornerPixels} fill="lime" /> :
+          <polygon points={"0,0 250,190 160,210"} fill="lime" />
+        }
         {/* <polygon points={points} fill={fillId} style={cellStyle} />   */}
         {props.children}
       </g>
